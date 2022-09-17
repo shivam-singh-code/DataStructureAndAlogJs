@@ -122,6 +122,42 @@ class SinglyLinkedList {
         this.length++;
         return true;
     }
+
+    remove(index) {
+        if (index < 0 || index >= this.length) return undefined;
+        if (index === 0) return this.shift();
+        if (index === this.length - 1) return this.pop();
+        let previousNode = this.get(index - 1);
+        let removed = previousNode.next;
+        previousNode.next = removed.next;
+        this.length--;
+        return removed;
+    }
+
+    print() {
+        let arr = [];
+        let current = this.head;
+        while (current) {
+            arr.push(current.val);
+            current = current.next;
+        }
+        console.log(arr);
+    }
+
+    reverse() {
+        let node = this.head;
+        this.head = this.tail;
+        this.tail = node;
+        let next;
+        let prev = null;
+        for (let i = 0; i < this.length; i++) {
+            next = node.next;
+            node.next = prev;
+            prev = node;
+            node = next;
+        }
+        return this;
+    }
 }
 
 var list = new SinglyLinkedList();
@@ -146,7 +182,11 @@ list.push(100);
 list.push(200);
 list.push(300);
 list.push(400);
-
-console.log(list.insert(0, 700));
+// list.remove(2);
+// console.log(list.get(2));
+// console.log(list.insert(0, 700));
 // console.log(list.get(1));
 // console.log(list);
+list.print();
+list.reverse();
+list.print();
