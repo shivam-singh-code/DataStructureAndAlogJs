@@ -44,6 +44,61 @@ class DoublyLinkedList {
         this.length--;
         return poppedNode;
     }
+
+    shift() {
+        if (this.length === 0) return undefined;
+        let oldHead = this.head;
+        if (this.length === 1) {
+            this.head = null;
+            this.tail = null;
+        } else {
+            this.head = oldHead.next;
+            this.head.prev = null;
+            oldHead.next = null;
+        }
+        this.length--;
+        return oldHead;
+    }
+
+    unshift(val) {
+        let newNode = new Node(val);
+        if (this.length === 0) {
+            this.head = newNode;
+            this.tail = newNode;
+        } else {
+            this.head.prev = newNode;
+            newNode.next = this.head;
+            this.head = newNode;
+        }
+        this.length++;
+        return this;
+    }
+
+    get(index) {
+        if (index < 0 || index >= this.length) return null;
+        let count;
+        let current;
+        if (index <= this.length / 2) {
+            console.log("working form beginning");
+            count = 0;
+            current = this.head;
+            while (count != index) {
+                current = current.next;
+                count++;
+            }
+            // return current;
+        } else {
+            console.log("working form end");
+            count = this.length - 1;
+            current = this.tail;
+            while (count !== index) {
+                current = current.prev;
+                count--;
+            }
+            // return current;
+        }
+        return current;
+    }
 }
 
 let doubleLinkedList = new DoublyLinkedList();
@@ -52,6 +107,21 @@ let doubleLinkedList = new DoublyLinkedList();
 // doubleLinkedList.push(40);
 // let oldTail = doubleLinkedList.pop();
 // console.log(oldTail.prev);
-console.log(doubleLinkedList.pop());
+// console.log(doubleLinkedList.pop());
 
-console.log(doubleLinkedList);
+doubleLinkedList.push("harry");
+
+doubleLinkedList.push("Ron");
+doubleLinkedList.push("hermoine");
+doubleLinkedList.push("Visily");
+doubleLinkedList.push("Metonr");
+
+// console.log(doubleLinkedList.shift());
+// console.log(doubleLinkedList.shift());
+// console.log(doubleLinkedList.shift());
+// console.log(doubleLinkedList.shift());
+
+// doubleLinkedList.unshift("harry");
+// doubleLinkedList.unshift("potter");
+console.log(doubleLinkedList.get(0));
+// console.log(doubleLinkedList);
